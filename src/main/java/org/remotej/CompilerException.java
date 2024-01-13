@@ -3,7 +3,6 @@ package org.remotej;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-
 public final class CompilerException extends RuntimeException {
 
     /**

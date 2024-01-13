@@ -20,34 +20,34 @@ import java.awt.*;
 
 public final class Drawer {
 
-   private DrawerPanel panel;
-   private DrawingTree theDrawing;
+    private DrawerPanel panel;
+    private DrawingTree theDrawing;
 
-   // Draw the AST representing a complete program.
+    // Draw the AST representing a complete program.
 
-   public final void draw(Service ast) {
-      panel = new DrawerPanel(this);
-      DrawerFrame frame = new DrawerFrame(panel);
+    public final void draw(Service ast) {
+        panel = new DrawerPanel(this);
+        DrawerFrame frame = new DrawerFrame(panel);
 
-      Font font = new Font("SansSerif", Font.PLAIN, 12);
-      frame.setFont(font);
+        Font font = new Font("SansSerif", Font.PLAIN, 12);
+        frame.setFont(font);
 
-      // Frame must be visible otherwise the graphics won't be created
-      frame.setVisible(true);
+        // Frame must be visible otherwise the graphics won't be created
+        frame.setVisible(true);
 
-      LayoutVisitor layout = new LayoutVisitor(panel.getGraphics());
-      theDrawing = (DrawingTree) ast.visit(layout, null);
-      theDrawing.position(new Point(2048, 10));
+        LayoutVisitor layout = new LayoutVisitor(panel.getGraphics());
+        theDrawing = (DrawingTree) ast.visit(layout, null);
+        theDrawing.position(new Point(2048, 10));
 
-   }
+    }
 
-   public final void paintAST(Graphics g) {
-      g.setColor(panel.getBackground());
-      Dimension d = panel.getSize();
-      g.fillRect(0, 0, d.width, d.height);
+    public final void paintAST(Graphics g) {
+        g.setColor(panel.getBackground());
+        Dimension d = panel.getSize();
+        g.fillRect(0, 0, d.width, d.height);
 
-      if (theDrawing != null) {
-         theDrawing.paint(g);
-      }
-   }
+        if (theDrawing != null) {
+            theDrawing.paint(g);
+        }
+    }
 }

@@ -1,11 +1,5 @@
 package clock;
 
-/**
- * Copyright(c) Paul Soule 2006.
- * <p/>
- * Date: Feb 22, 2007
- * Time: 11:14:02 AM
- */
 /*
  * @(#)Clock2.java	1.5 98/07/09
  *
@@ -47,13 +41,6 @@ import java.util.Locale;
 
 import javax.swing.JFrame;
 
-/**
- * Time!
- *
- * @author Rachel Gollub, modified by Dean Mao and Eli Tilevich
- */
-
-@SuppressWarnings("serial")
 public class Clock2 extends JFrame implements Runnable {
 
    Thread timer;                // The thread that displays clock
@@ -107,7 +94,7 @@ public class Clock2 extends JFrame implements Runnable {
       float d;
       x = 0;
       y = r;
-      d = 5 / 4 - r;
+      d = (float) 5 / 4 - r;
       plotpoints(x0, y0, x, y, g);
 
       while (y > x) {
@@ -130,7 +117,7 @@ public class Clock2 extends JFrame implements Runnable {
    // Paint is the main part of the program
    @SuppressWarnings("deprecation")
    public void paint(Graphics g) {
-      int xh, yh, xm, ym, xs, ys, s = 0, m = 10, h = 10, xcenter, ycenter;
+      int xh, yh, xm, ym, xs, ys, s, m, h, xcenter, ycenter;
       String today;
 
       currentDate = getDate();

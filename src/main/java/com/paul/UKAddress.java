@@ -1,12 +1,5 @@
 package com.paul;
 
-/**
- * Copyright(c) Paul Soule. All rights reserved.
- * <p/>
- * This file is part of the RemoteJ system.
- * <p/>
- * Created at 11:54:18 AM on Jun 27, 2006
- */
 public class UKAddress extends Address {
 
    public String getVersion() {

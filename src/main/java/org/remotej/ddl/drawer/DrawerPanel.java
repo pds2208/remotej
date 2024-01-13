@@ -19,15 +19,15 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 final class DrawerPanel extends JPanel {
-   private final Drawer drawer;
+    private final Drawer drawer;
 
-   public DrawerPanel(Drawer drawer) {
-      setPreferredSize(new Dimension(4096, 4096));
-      this.drawer = drawer;
-   }
+    public DrawerPanel(Drawer drawer) {
+        setPreferredSize(new Dimension(4096, 4096));
+        this.drawer = drawer;
+    }
 
-   public final void paintComponent(Graphics g) {
-      super.paintComponent(g);
-      drawer.paintAST(g);
-   }
+    public final void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        drawer.paintAST(g);
+    }
 }

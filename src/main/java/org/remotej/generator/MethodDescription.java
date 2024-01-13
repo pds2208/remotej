@@ -3,13 +3,6 @@ package org.remotej.generator;
 import org.remotej.ddl.trees.ParameterDeclaration;
 import org.remotej.ddl.trees.ReturnValue;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Paul Soule
- * Date: 05-May-2006
- * Time: 16:20:43
- * To change this template use File | Settings | File Templates.
- */
 public final class MethodDescription {
     private String name;
     private ParameterDeclaration parameters;

@@ -19,15 +19,15 @@ import org.remotej.ddl.analyser.SourcePosition;
 
 public abstract class AST {
 
-   public SourcePosition position;
+    public SourcePosition position;
 
-   public AST(SourcePosition thePosition) {
-      position = thePosition;
-   }
+    public AST(SourcePosition thePosition) {
+        position = thePosition;
+    }
 
-   public SourcePosition getPosition() {
-      return position;
-   }
+    public SourcePosition getPosition() {
+        return position;
+    }
 
-   public abstract Object visit(Visitor v, Object o);
+    public abstract Object visit(Visitor v, Object o);
 }

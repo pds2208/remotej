@@ -1,253 +1,235 @@
 package org.remotej.generator.jms.client;
 
+import javax.jms.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
-import javax.jms.Session;
-import javax.jms.Topic;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
-
-/**
- * Copyright(c) Paul Soule. All rights reserved.
- * <p/>
- * This file is part of the RemoteJ system.
- * <p/>
- * Created at 8:57:42 AM on Jun 15, 2006
- * <p/>
- * This class is a skeleton that will be extended at compile time.
- */
 public class SUBClient {
-   private ConnectionFactory connectionFactory;
-   private Topic destination;
-   private MessageConsumer consumer;
-   private Connection connection;
+    private ConnectionFactory connectionFactory;
+    private Topic destination;
+    private MessageConsumer consumer;
+    private Connection connection;
 
-   private String topic;
+    private String topic;
 
-   private String[] hosts;
-   private static int currentHost = 0;
-   // options
-   public String brokerURL;
-   public String initialContextFactory;
-   public String sendTopic;
-   public int receiveTimeout;
-   public boolean durable;
-   public String subscriberName;
-   public String clientID;
-   public MessageListener listener;
+    private String[] hosts;
+    private static int currentHost = 0;
+    // options
+    public String brokerURL;
+    public String initialContextFactory;
+    public String sendTopic;
+    public int receiveTimeout;
+    public boolean durable;
+    public String subscriberName;
+    public String clientID;
+    public MessageListener listener;
 
-   public MessageListener getListener() {
-      return listener;
-   }
+    public MessageListener getListener() {
+        return listener;
+    }
 
-   public void setListener(MessageListener listener) {
-      this.listener = listener;
-   }
+    public void setListener(MessageListener listener) {
+        this.listener = listener;
+    }
 
-   public boolean isDurable() {
-      return durable;
-   }
+    public boolean isDurable() {
+        return durable;
+    }
 
-   public void setDurable(boolean durable) {
-      this.durable = durable;
-   }
+    public void setDurable(boolean durable) {
+        this.durable = durable;
+    }
 
-   public String getSubscriberName() {
-      return subscriberName;
-   }
+    public String getSubscriberName() {
+        return subscriberName;
+    }
 
-   public void setSubscriberName(String subscriberName) {
-      this.subscriberName = subscriberName;
-   }
+    public void setSubscriberName(String subscriberName) {
+        this.subscriberName = subscriberName;
+    }
 
-   public String getClientID() {
-      return clientID;
-   }
+    public String getClientID() {
+        return clientID;
+    }
 
-   public void setClientID(String clientID) {
-      this.clientID = clientID;
-   }
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
+    }
 
-   public Object getReceivedMessage() throws JMSException {
-      getConnection();
-      Object message = consumer.receive(receiveTimeout);
+    public Object getReceivedMessage() throws JMSException {
+        getConnection();
+        Object message = consumer.receive(receiveTimeout);
 
-      // a timeout
-      if (message == null) {
-         return null;
-      }
-      
-      if (!(message instanceof ObjectMessage)) {
-         throw new IllegalArgumentException("Message must be of type ObjectMessage");
-      }
+        // a timeout
+        if (message == null) {
+            return null;
+        }
 
-      try {
-         ObjectMessage o = (ObjectMessage) message;
-         return o.getObject();
-      } catch (JMSException ex) {
-         throw new RuntimeException(ex);
-      }
-   }
+        if (!(message instanceof ObjectMessage)) {
+            throw new IllegalArgumentException("Message must be of type ObjectMessage");
+        }
 
-
-   public int getTimeout() {
-      return receiveTimeout;
-   }
-
-   public void setTimeout(int receiveTimeout) {
-      this.receiveTimeout = receiveTimeout;
-   }
-
-   public SUBClient() {
-      
-   }
-   
-   public int getExceptionDepth() {
-      return exceptionDepth;
-   }
-
-   public void setExceptionDepth(int exceptionDepth) {
-      this.exceptionDepth = exceptionDepth;
-   }
-
-   private int exceptionDepth = 0;
-
-   public String getCurrentHost() {
-      if (hosts == null) {
-         _SUBClient();
-      }
-      return hosts[currentHost];
-   }
-
-   public boolean getDurable() {
-      return durable;
-   }
-
-   public void setPersist(boolean durable) {
-      this.durable = durable;
-   }
+        try {
+            ObjectMessage o = (ObjectMessage) message;
+            return o.getObject();
+        } catch (JMSException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 
-   public void _SUBClient() {
-      String s;
-      if (System.getProperty("remotej.servers") != null) {
-         s = System.getProperty("remotej.servers");
-      } else {
-         s = brokerURL;
-      }
-      StringTokenizer st = new StringTokenizer(s, ",");
-      hosts = new String[st.countTokens()];
-      int i = 0;
-      while (st.hasMoreTokens()) {
-         hosts[i] = st.nextToken();
-         i++;
-      }
+    public int getTimeout() {
+        return receiveTimeout;
+    }
 
-   }
+    public void setTimeout(int receiveTimeout) {
+        this.receiveTimeout = receiveTimeout;
+    }
 
-   public void setHosts(String[] hosts) {
-      String s = "";
-      for (int i = 0; i < hosts.length; i++) {
-         s += hosts[i];
-         if (i != hosts.length - 1) {
-            s += ",";
-         }
-      }
-      System.setProperty("remotej.servers", s);
-   }
+    public SUBClient() {
 
-   public String getBrokerURL() {
-      return brokerURL;
-   }
+    }
 
-   public void setBrokerURL(String brokerURL) {
-      this.brokerURL = brokerURL;
-   }
+    public int getExceptionDepth() {
+        return exceptionDepth;
+    }
 
-   public String getInitialContextFactory() {
-      return initialContextFactory;
-   }
+    public void setExceptionDepth(int exceptionDepth) {
+        this.exceptionDepth = exceptionDepth;
+    }
 
-   public void setInitialContextFactory(String initialContextFactory) {
-      this.initialContextFactory = initialContextFactory;
-   }
+    private int exceptionDepth = 0;
 
-   public String getTopic() {
-      return topic;
-   }
+    public String getCurrentHost() {
+        if (hosts == null) {
+            _SUBClient();
+        }
+        return hosts[currentHost];
+    }
 
-   public void setTopic(String topic) {
-      this.topic = topic;
-   }
+    public boolean getDurable() {
+        return durable;
+    }
 
-   public synchronized Connection getConnection() throws JMSException {
-      _SUBClient();
-      if (connection == null) {
-         findAlternateServer();
-      }
+    public void setPersist(boolean durable) {
+        this.durable = durable;
+    }
 
 
-      return connection;
-   }
+    public void _SUBClient() {
+        String s;
+        if (System.getProperty("remotej.servers") != null) {
+            s = System.getProperty("remotej.servers");
+        } else {
+            s = brokerURL;
+        }
+        StringTokenizer st = new StringTokenizer(s, ",");
+        hosts = new String[st.countTokens()];
+        int i = 0;
+        while (st.hasMoreTokens()) {
+            hosts[i] = st.nextToken();
+            i++;
+        }
 
-   public void findAlternateServer() throws JMSException {
+    }
 
-      if (hosts == null) {
-         throw new RuntimeException("No JMS broker hosts have been declared");
-      }
+    public void setHosts(String[] hosts) {
+        String s = "";
+        for (int i = 0; i < hosts.length; i++) {
+            s += hosts[i];
+            if (i != hosts.length - 1) {
+                s += ",";
+            }
+        }
+        System.setProperty("remotej.servers", s);
+    }
 
-      int savedHost = currentHost;
+    public String getBrokerURL() {
+        return brokerURL;
+    }
 
-      while (true) {
-         Properties props = new Properties();
-         props.setProperty(Context.INITIAL_CONTEXT_FACTORY, initialContextFactory);
-         props.setProperty(Context.PROVIDER_URL, hosts[currentHost]);
-         props.setProperty("topic.destination", topic);
+    public void setBrokerURL(String brokerURL) {
+        this.brokerURL = brokerURL;
+    }
 
-         try {
+    public String getInitialContextFactory() {
+        return initialContextFactory;
+    }
 
-            Context ctx = new InitialContext(props);
-            connectionFactory = (ConnectionFactory) ctx.lookup("ConnectionFactory");
-            connection = connectionFactory.createConnection();
+    public void setInitialContextFactory(String initialContextFactory) {
+        this.initialContextFactory = initialContextFactory;
+    }
 
-            if (durable) {
-               connection.setClientID(clientID);
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public synchronized Connection getConnection() throws JMSException {
+        _SUBClient();
+        if (connection == null) {
+            findAlternateServer();
+        }
+
+
+        return connection;
+    }
+
+    public void findAlternateServer() throws JMSException {
+
+        if (hosts == null) {
+            throw new RuntimeException("No JMS broker hosts have been declared");
+        }
+
+        int savedHost = currentHost;
+
+        while (true) {
+            Properties props = new Properties();
+            props.setProperty(Context.INITIAL_CONTEXT_FACTORY, initialContextFactory);
+            props.setProperty(Context.PROVIDER_URL, hosts[currentHost]);
+            props.setProperty("topic.destination", topic);
+
+            try {
+
+                Context ctx = new InitialContext(props);
+                connectionFactory = (ConnectionFactory) ctx.lookup("ConnectionFactory");
+                connection = connectionFactory.createConnection();
+
+                if (durable) {
+                    connection.setClientID(clientID);
+                }
+
+                Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+                destination = (Topic) ctx.lookup("destination");
+
+                if (durable) {
+                    consumer = session.createDurableSubscriber(destination, subscriberName);
+                } else {
+                    consumer = session.createConsumer(destination);
+                }
+                consumer.setMessageListener(listener);
+                connection.start();
+                return;
+            } catch (Exception e) {
+                //e.printStackTrace();
+                System.err.println("Connection to broker: " + hosts[currentHost] + " failed.");
             }
 
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            destination = (Topic) ctx.lookup("destination");
-
-            if (durable) {
-               consumer = session.createDurableSubscriber(destination, subscriberName);
-            } else {
-               consumer = session.createConsumer(destination);
+            currentHost++;
+            if (currentHost + 1 > hosts.length) {
+                currentHost = 0;
             }
-		      consumer.setMessageListener(listener);
-            connection.start();
-            return;
-         } catch (Exception e) {
-            //e.printStackTrace();
-            System.err.println("Connection to broker: " + hosts[currentHost] + " failed.");
-         }
+            if (currentHost == savedHost) { // give up
+                exceptionDepth++;
+                throw new JMSException("Cannot connect to any remote brokers");
+            }
+        }
 
-         currentHost++;
-         if (currentHost + 1 > hosts.length) {
-            currentHost = 0;
-         }
-         if (currentHost == savedHost) { // give up
-            exceptionDepth++;
-            throw new JMSException("Cannot connect to any remote brokers");
-         }
-      }
-
-   }
+    }
 
 }

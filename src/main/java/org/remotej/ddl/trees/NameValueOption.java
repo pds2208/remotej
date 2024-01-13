@@ -7,18 +7,14 @@ package org.remotej.ddl.trees;
 
 import org.remotej.ddl.analyser.SourcePosition;
 
-/**
- *
- * @author soulep
- */
 public class NameValueOption extends Option {
     public Identifier name;
     public Identifier value;
-    
- public NameValueOption(Identifier name, Identifier value, SourcePosition thePosition) {
+
+    public NameValueOption(Identifier name, Identifier value, SourcePosition thePosition) {
         super(thePosition);
         this.name = name;
-        this.value = value;  
+        this.value = value;
     }
 
     @Override

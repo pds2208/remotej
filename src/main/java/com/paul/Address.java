@@ -1,12 +1,5 @@
 package com.paul;
 
-/**
- * Copyright(c) Paul Soule. All rights reserved.
- * <p/>
- * This file is part of the RemoteJ system.
- * <p/>
- * Created at 2:20:20 PM on Mar 5, 2006
- */
 public class Address {
 
    public static void main(String[] args) {

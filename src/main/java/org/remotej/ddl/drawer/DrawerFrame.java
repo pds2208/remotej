@@ -22,24 +22,24 @@ import java.awt.event.WindowEvent;
 
 @SuppressWarnings("serial")
 final class DrawerFrame extends JFrame {
-   public DrawerFrame(JPanel panel) {
-      setSize(200, 200);
-      Toolkit tk = Toolkit.getDefaultToolkit();
-      Dimension d = tk.getScreenSize();
-      int screenHeight = d.height;
-      int screenWidth = d.width;
-      setTitle("RemoteJ Compiler: Abstract Syntax Tree");
-      setSize(screenWidth, screenHeight);
-      //setLocation(screenWidth / 4, screenHeight / 4);
+    public DrawerFrame(JPanel panel) {
+        setSize(200, 200);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        int screenHeight = d.height;
+        int screenWidth = d.width;
+        setTitle("RemoteJ Compiler: Abstract Syntax Tree");
+        setSize(screenWidth, screenHeight);
+        //setLocation(screenWidth / 4, screenHeight / 4);
 
-      addWindowListener(
-         new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-               System.exit(0);
+        addWindowListener(
+            new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    System.exit(0);
+                }
             }
-         }
-      );
-      Container contentPane = getContentPane();
-      contentPane.add(new JScrollPane(panel));
-   }
+        );
+        Container contentPane = getContentPane();
+        contentPane.add(new JScrollPane(panel));
+    }
 }

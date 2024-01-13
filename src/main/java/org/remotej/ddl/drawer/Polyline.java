@@ -15,14 +15,13 @@
 package org.remotej.ddl.drawer;
 
 final class Polyline {
-   final int dx;
-   final int dy;
-   Polyline link;
+    final int dx;
+    final int dy;
+    Polyline link;
 
-   Polyline(int dx, int dy, Polyline link) {
-      this.dx = dx;
-      this.dy = dy;
-      this.link = link;
-   }
+    Polyline(int dx, int dy, Polyline link) {
+        this.dx = dx;
+        this.dy = dy;
+        this.link = link;
+    }
 }
-

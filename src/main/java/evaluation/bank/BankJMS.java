@@ -12,10 +12,8 @@ import java.util.Properties;
  * Time: 4:31:42 PM
  */
 public class BankJMS implements MessageListener {
-    private Queue destination;
-    private Session session;
 
-   private double balance;
+    private double balance;
 
    public BankJMS() {
    }
@@ -48,6 +46,7 @@ public class BankJMS implements MessageListener {
         BankJMS d = new BankJMS();
         d.initialize();
     }
+
    private void initialize() throws JMSException, NamingException {
       Properties props = new Properties();
       props.setProperty(Context.INITIAL_CONTEXT_FACTORY,
@@ -58,8 +57,8 @@ public class BankJMS implements MessageListener {
       QueueConnectionFactory connectionFactory =
          (QueueConnectionFactory) ctx.lookup("ConnectionFactory");
       QueueConnection c = connectionFactory.createQueueConnection();
-      destination = (Queue) ctx.lookup("destination");
-      session = c.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+       Queue destination = (Queue) ctx.lookup("destination");
+       Session session = c.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
       MessageConsumer requestConsumer = session.createConsumer(destination);
       requestConsumer.setMessageListener(this);
       c.start();

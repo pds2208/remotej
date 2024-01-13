@@ -8,10 +8,7 @@ import org.remotej.ddl.trees.*;
 import java.util.HashSet;
 import java.util.Vector;
 
-/**
- * Copyright(c) Paul Soule. All rights reserved. <p/> This file is part of the
- * RemoteJ system. <p/> Created at 2:29:12 PM on Mar 26, 2006
- */
+
 public final class Generator implements Visitor {
 
     private final ErrorHandler reporter;
@@ -143,20 +140,20 @@ public final class Generator implements Visitor {
         return null;
     }
 
-    public  Object visitSequentialClassImportStatement(
+    public Object visitSequentialClassImportStatement(
         SequentialClassImportStatement ast, Object o) {
         ast.st1.visit(this, null);
         ast.st2.visit(this, null);
         return null;
     }
 
-    public  Object visitClassImportStatement(ClassImportStatement ast,
-                                                  Object o) {
+    public Object visitClassImportStatement(ClassImportStatement ast,
+                                            Object o) {
         imports.add(ast.importStatement.spelling);
         return null;
     }
 
-    public  Object visitMethod(Methods ast, Object o) {
+    public Object visitMethod(Methods ast, Object o) {
         ast.methodName.visit(this, null);
         ast.parameters.visit(this, null);
         ast.returnValue.visit(this, null);
@@ -174,7 +171,7 @@ public final class Generator implements Visitor {
         return null;
     }
 
-    public  Object visitMethodName(MethodName ast, Object o) {
+    public Object visitMethodName(MethodName ast, Object o) {
         ast.methodValue.visit(this, null);
         return null;
     }

@@ -3,47 +3,44 @@ package org.remotej.server;
 import java.util.Date;
 import java.util.Hashtable;
 
-/**
- * User: soulep Date: Apr 6, 2008 Time: 6:40:54 PM
- */
 public class RemoteJRegistry {
-   private static final Hashtable<String, Cache> registry = new Hashtable<String, Cache>();
+    private static final Hashtable<String, Cache> registry = new Hashtable<String, Cache>();
 
-   public RemoteJRegistry() {
+    public RemoteJRegistry() {
 //      if (cleanupThread == null) {
 //         cleanupThread = startCleanupThread();
 //      }
-   }
+    }
 
-   public void put(String s, Object o) {
-      Cache c = new Cache(o);
-      registry.put(s, c);
-   }
+    public void put(String s, Object o) {
+        Cache c = new Cache(o);
+        registry.put(s, c);
+    }
 
-   public Object get(String key) {
-      Cache c = registry.get(key);
-      if (c == null) {
-         return null;
-      }
-      return c.getObject();
-   }
+    public Object get(String key) {
+        Cache c = registry.get(key);
+        if (c == null) {
+            return null;
+        }
+        return c.getObject();
+    }
 
-   public class Cache {
-      private Object object;
-      private Date lastAccessed;
+    public class Cache {
+        private Object object;
+        private Date lastAccessed;
 
-      Cache(Object object) {
-         lastAccessed = new Date();
-         this.object = object;
-      }
+        Cache(Object object) {
+            lastAccessed = new Date();
+            this.object = object;
+        }
 
-      public Object getObject() {
-         lastAccessed = new Date();
-         return object;
-      }
+        public Object getObject() {
+            lastAccessed = new Date();
+            return object;
+        }
 
-      public Date getLastAccessTime() {
-         return lastAccessed;
-      }
-   }
+        public Date getLastAccessTime() {
+            return lastAccessed;
+        }
+    }
 }

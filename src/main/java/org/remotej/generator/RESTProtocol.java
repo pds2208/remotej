@@ -14,9 +14,6 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-/**
- * User: soulep Date: Apr 4, 2008 Time: 10:15:51 AM
- */
 public class RESTProtocol extends Protocol {
 
     private static String SERVERS_URL = "servers";
