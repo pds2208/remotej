@@ -1,0 +1,65 @@
+Grammer           ::= (ImportList)* Service
+
+ImportList        ::= SingleImport (SingleImport)*
+SingleImport      ::= "import" Imports Semi
+Imports           ::= Identifier (Dot Identifier | WildCard)*
+
+Service           ::= "service" Identifier LeftCurly StatementList RightCurly
+
+StatementList     ::= (RecoveryList)* 
+                      (ProtocolList)+
+
+RecoveryList      ::= RecoveryStatement (RecoveryStatement)*
+
+RecoveryStatement ::= "recovery" RecoveryName LeftBracket 
+                      ClassName Variable RightBracket 
+                      LeftCurly AnyJavaCode RightCurly
+
+ProtocolList      ::= ProtocolStatement (ProtocolStatement)*
+ProtocolStatement ::= "protocol" ProtocolList Colon LeftCurly
+                      Options (ExportStatement)+ RightCurly
+
+ProtocolList      ::= "rmi" | "rest"
+Options           ::= "options" LeftCurly 
+                      (RmiOptions)+ | (RestOptions)+ 
+                      RightCurly
+RmiOptions        ::= RegistryName | RegistryHost | RegistryPort | Embedded 
+RegistryName      ::= "registryName" Equals Quote Identifier Quote Semi
+RegistryHost      ::= "registryHost" Equaly Hostname | IpAddress Semi
+RegistryPort      ::= "registryPort" Equals IntegerLiteral Semi
+HostName          ::= Quote Identifier Quote
+IpAddress         ::= IntLiteral Dot IntLiteral Dot IntLiteral Dot IntLiteral
+Embedded          ::= "runEmbeddedRegistry" Equals "true" | "false" Semi
+
+RestOptions       ::= BaseURI | PortNumber | SSL Semi
+BaseURI           ::= "baseURI" Equals Quote Identifier Quote
+PortNumber        ::= "portNumber" Equals IntegerLiteral
+SSL               ::= "SSL" Equals "true" | "false"
+
+exportStatement   ::= "export" ReturnValue ExportName LeftBracket 
+                      (Parameter)? (Comma Parameter)* RightBracket 
+                      LeftCurly  RecoveryType RightCurly
+
+RecoveryType      ::= "recovery" Equals RecoveryOption Semi 
+
+RecoveryOption    ::= RecoveryName | "continue" | "abort" | "nextServer"
+Parameter         ::= ClassName
+
+RecoveryName      ::= Identifier
+ClassName         ::= Identifier (Dot Identifier)*
+ExportName        ::= Identifier (Dot Identifier | WildCard)*
+Variable          ::= Identifier
+RecoveryType      ::= 
+IntegerLitera     ::= 0..255
+Identifier        ::= ('a'..'z'|'A'..'Z')+ (NUMBER)*
+WildCard          ::= "*"
+Comma             ::= ";"
+Dot               ::= "."
+Semi              ::= ";"
+LeftCurly         ::= "{"
+RightCurly        ::= "}"
+LeftBracket       ::= "("
+RightBracket      ::= ")"
+Colon             ::= ":"
+Equals            ::= "="
+Quote             ::= '"'
